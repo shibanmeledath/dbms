@@ -1,0 +1,59 @@
+
+CREATE TABLE ShibanE2 (Employee_Id varchar(5),Name varchar(20),Age int,Salary float,Title varchar(20),Joining_Date date);
+ INSERT INTO ShibanE2 VALUES('E1','Mahesh',50,115000.89,'Manager','20-03-1967');
+ INSERT INTO ShibanE2 VALUES('E2','Nimitha',35,110000.78,'Programmer','02-08-1981');
+ INSERT INTO ShibanE2 VALUES('E3','Ashitha',28,35000.89,'Programmer','01-09-1988');
+ INSERT INTO ShibanE2 VALUES('E4','Ajay',32,27000.56,'Technician','23-02-1975');
+ INSERT INTO ShibanE2 VALUES('E5','Roy',24,34000.67,'Programmer','05-05-1990');
+ INSERT INTO ShibanE2 VALUES('E6','Sindhu',33,36000.45,'Technician','09-04-1984');
+SELECT TITLE FROM ShibanE2 GROUP BY TITLE;
+SELECT*FROM ShibanE2 WHERE(SALARY>35000 AND NOT TITLE='Programmer');
+SELECT*FROM ShibanE2 WHERE(SALARY>99999);
+SELECT*FROM ShibanE2 WHERE(NOT TITLE='Manager'AND NOT TITLE='Programmer');
+ SELECT Name FROM ShibanE2 WHERE(sysdate-Joining_Date>(35*365));
+ALTER TABLE ShibanE2 ADD PRIMARY KEY (Employee_Id);
+ INSERT INTO ShibanE2 VALUES('E1','Ramesh',59,118000.89,'Manager','20-03-1960');
+ALTER TABLE ShibanE2 MODIFY Name varchar(20) NOT NULL;
+ALTER TABLE ShibanE2 ADD UNIQUE(Employee_Id);
+ALTER TABLE ShibanE2 DROP PRIMARY KEY;
+ALTER TABLE ShibanE2 ADD PRIMARY KEY (Employee_Id,Name);
+SELECT Employee_Id,Joining_Date INTO ShibanDpt FROM ShibanE2;
+
+
+CREATE TABLE ShibanDpt AS SELECT Employee_Id,Joining_Date FROM ShibanE2;
+  
+
+ALTER TABLE ShibanDpt ADD Department varchar(5); 
+INSERT INTO ShibanDpt VALUES('E1','Mahesh',50,115000.89,'Manager','20-03-1967');
+INSERT INTO ShibanDpt (Department)VALUES ('D4')WHERE Employee_Id='E1'; 
+DELETE FROM ShibanDpt WHERE Department='D4';
+UPDATE ShibanDpt SET Department = 'D4'WHERE Employee_Id='E1';
+UPDATE ShibanDpt SET Department = 'D2'WHERE Employee_Id='E2';
+UPDATE ShibanDpt SET Department = 'D1'WHERE Employee_Id='E3';
+UPDATE ShibanDpt SET Department = 'D1'WHERE Employee_Id='E4';
+UPDATE ShibanDpt SET Department = 'D1'WHERE Employee_Id='E5';
+UPDATE ShibanDpt SET Department = 'D2'WHERE Employee_Id='E6';
+
+CREATE TABLE ShibanTit AS SELECT Employee_Id,Salary FROM ShibanE2;
+CREATE TABLE ShibanSal AS SELECT Employee_Id,Title FROM ShibanE2;
+ ALTER TABLE ShibanDpt RENAME COLUMN Department to Department_Id;
+CREATE TABLE ShibanDpt2 AS SELECT DISTINCT Department_Id FROM ShibanDpt;
+ALTER TABLE ShibanDpt2 ADD Department varchar(20); 
+
+
+UPDATE ShibanDpt SET Department = 'D4'WHERE Employee_Id='E1';
+UPDATE ShibanDpt SET Department = 'D2'WHERE Employee_Id='E2';
+UPDATE ShibanDpt SET Department = 'D1'WHERE Employee_Id='E3';
+UPDATE ShibanDpt SET Department = 'D1'WHERE Employee_Id='E4';
+UPDATE ShibanDpt SET Department = 'D1'WHERE Employee_Id='E5';
+UPDATE ShibanDpt SET Department = 'D2'WHERE Employee_Id='E6';
+
+SELECT*FROM ShibanDpt2;
+ INSERT INTO ShibanDpt2 (Department_Id) VALUES ('D3');
+SELECT * FROM ShibanDpt2 ORDER BY Department_Id;
+ALTER TABLE ShibanDpt2 ADD Department varchar(20);
+
+UPDATE ShibanDpt2 SET Department = 'Production'WHERE Department_Id='D1';
+UPDATE ShibanDpt2 SET Department = 'R and D'WHERE Department_Id='D2';
+UPDATE ShibanDpt2 SET Department = 'Purchasing'WHERE Department_Id='D3';
+UPDATE ShibanDpt2 SET Department = 'Marketing'WHERE Department_Id='D4';
