@@ -1,0 +1,50 @@
+create TABLE emp11(Empid int ,Deptid int,Job varchar(10),Salary int);
+insert into emp11 values(1,2,'Code',4000);
+insert into emp11 values(2,1,'Analyst',20000);
+insert into emp11 values(3,3,'Editor',15000);
+insert into emp11 values(4,2,'Leader',25000);
+insert into emp11 values(5,3,'Leader',45000);
+insert into emp11 values(6,5,'Tech',8000);
+insert into emp11 values(7,2,'Programmer',28000);
+create TABLE empdetaile(Empid int,Fname varchar(20),Lname varchar(20),City varchar(20),Hiredate date);
+insert into empdetaile values(1,'Rada','Raja','Pkd','27-11-2010');
+insert into empdetaile values(2,'Hari','Muphaza','Ekm','16-08-1997');
+insert into empdetaile values(3,'Mang','Sasi','Alp','20-02-2015');
+insert into empdetaile values(4,'Style','Haris','Ktm','15-01-1996');
+insert into empdetaile values(5,'Mes','Das','Idk','11-10-2020');
+insert into empdetaile values(6,'Row','Wip','ptm','10-12-2021');
+create TABLE deptdetails(Deptid int,Title varchar(20),Location varchar(20));
+insert into deptdetails values(2,'Program','Ppl');
+insert into deptdetails values(1,'Comp','Adi');
+insert into deptdetails values(3,'Media','Nad');
+insert into deptdetails values(5,'Hardware','Edp');
+create TABLE test(Deptid int);
+insert into test values(5);
+
+
+
+
+
+
+        ANSWERS
+
+select * from empdetaile where length(Fname)= length(Lname);
+select initcap(city) from empdetaile;
+select empid,lname,fname from empdetaile where empid!=2 and empid<6 order by lname;
+select count(empid) from emp11;
+select fname,lname,deptid from emp11,empdetaile where emp11.empid=empdetaile.empid and emp11.deptid=3 and (job='Programmer' or job='Leader');
+select fname,lname,deptid,salary from emp11,empdetaile where emp11.empid=empdetaile.empid and emp11.salary>7000 and emp11.salary<15000;
+update emp11 set salary= salary+(salary*0.15) where deptid=4 or deptid=2;
+select count(*) from emp11 where Empid is NOT NULL and Deptid is NOT NULL and Job is NOT NULL and Salary is NOT NULL;
+select distinct sysdate,last_day(sysdate) from emp11;
+select empid*empid from emp11;
+
+select * from empdetaile where sysdate-hiredate>1;
+select distinct next_day(sysdate,'friday') from emp11;
+select upper(title) from deptdetails;
+select to_char(hiredate,'mm/dd/yyyy') from empdetaile;
+select avg(salary) from emp11 group by deptid;
+select * from empdetaile where mod(empid,2)=1;
+select min(salary),max(salary) from emp11 group by deptid;
+select months_between(16-09-1997,16-01-1996) from test;
+
